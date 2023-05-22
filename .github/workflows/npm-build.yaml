@@ -15,7 +15,7 @@ on:
 jobs:
   npm-build:
     runs-on: self-hosted
-    container: asia.gcr.io/coinmap-k8s/cex/node:14.18.2-alpine
+    container: node:14.18.2-alpine
     steps:
       - uses: actions/checkout@v3
         with:

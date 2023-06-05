@@ -79,6 +79,7 @@ jobs:
         with:
           version: ${{needs.build-docker.outputs.build-version}}
       - uses: ./coinmap-actions/notification
+        if: ${{ always() }}
         with:
           version: ${{needs.build-docker.outputs.build-version}}
           environment: ${{ steps.deploy.outputs.environment }}

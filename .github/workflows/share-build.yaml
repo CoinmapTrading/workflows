@@ -55,6 +55,11 @@ jobs:
           repository: CoinmapTrading/actions
           token: ${{ secrets.envPAT }}
           path: coinmap-actions
+      - uses: actions/checkout@v3
+        with:
+          repository: CoinmapTrading/cm-infras
+          token: ${{ secrets.envPAT }}
+          path: cm-infras
       - id: deploy
         uses: ./coinmap-actions/deploy
         with:

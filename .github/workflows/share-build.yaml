@@ -81,10 +81,6 @@ jobs:
           version: ${{needs.build-docker.outputs.build-version}}
           environment: ${{needs.build-docker.outputs.environment}}
 
-      - name: debug output
-        run: |
-          echo ${{ steps.deploy.outputs.status }}
-
       - uses: ./coinmap-actions/notification
         if: ${{ failure() }}
         with:

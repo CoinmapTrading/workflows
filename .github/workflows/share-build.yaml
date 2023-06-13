@@ -37,6 +37,7 @@ jobs:
     runs-on: self-hosted
     outputs:
       build-version: ${{ steps.build.outputs.build-version }}
+      environment: ${{ steps.build.outputs.environment }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -49,14 +50,14 @@ jobs:
       - uses: ./coinmap-actions/notification
         if: ${{ failure() }}
         with:
-          environment: "build-docker"
-          version: ${{steps.build.outputs.version-id}}
+          environment: "build\\\-docker"
+          version: ${{steps.build.outputs.build-version}}
           status: "failure"
       - uses: ./coinmap-actions/notification
         if: ${{ success() }}
         with:
-          environment: "build\\-docker"
-          version: ${{steps.build.outputs.version-id}}
+          environment: "build\\\-docker"
+          version: ${{steps.build.outputs.build-version}}
           status: "success"
           
   deploy:
@@ -85,8 +86,15 @@ jobs:
           echo ${{ steps.deploy.outputs.status }}
 
       - uses: ./coinmap-actions/notification
-        if: ${{ always() }}
+        if: ${{ failure() }}
         with:
           version: ${{needs.build-docker.outputs.build-version}}
           environment: ${{needs.build-docker.outputs.environment}}
-          status: ${{ steps.deploy.outputs.status }}
+          status: "failure"
+
+      - uses: ./coinmap-actions/notification
+        if: ${{ success() }}
+        with:
+          version: ${{needs.build-docker.outputs.build-version}}
+          environment: ${{needs.build-docker.outputs.environment}}
+          status: "success"

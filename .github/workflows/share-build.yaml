@@ -78,6 +78,7 @@ jobs:
         uses: ./coinmap-actions/deploy
         with:
           version: ${{needs.build-docker.outputs.build-version}}
+          environment: ${{needs.build-docker.outputs.environment}}
 
       - name: debug output
         run: |
@@ -87,5 +88,5 @@ jobs:
         if: ${{ always() }}
         with:
           version: ${{needs.build-docker.outputs.build-version}}
-          environment: ${{ steps.deploy.outputs.environment }}
+          environment: ${{needs.build-docker.outputs.environment}}
           status: ${{ steps.deploy.outputs.status }}

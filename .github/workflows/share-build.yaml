@@ -40,12 +40,6 @@ jobs:
           environment: 'build-docker'
           version: ${{ steps.build.outputs.build-version }}
           status: "failure"
-      - uses: ./coinmap-actions/notification
-        if: ${{ success() }}
-        with:
-          environment: 'build-docker'
-          version: ${{ steps.build.outputs.build-version }}
-          status: "success"
           
   deploy:
     needs: [build-docker]

@@ -31,7 +31,7 @@ jobs:
           repository: CoinmapTrading/actions
           token: ${{ secrets.envPAT }}
           path: coinmap-actions
-          ref: dev-ci
+          ref: v0.0.1
       - id: build
         uses: ./coinmap-actions/build
       - uses: ./coinmap-actions/notification
@@ -50,7 +50,7 @@ jobs:
           repository: CoinmapTrading/actions
           token: ${{ secrets.envPAT }}
           path: coinmap-actions
-          ref: dev-ci
+          ref: v0.0.1
       - uses: actions/checkout@v3
         with:
           repository: CoinmapTrading/cm-infras

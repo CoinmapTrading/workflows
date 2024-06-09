@@ -34,12 +34,12 @@ jobs:
           ref: v0.0.2
       - id: build
         uses: ./coinmap-actions/build
-      - uses: ./coinmap-actions/notification
-        if: ${{ failure() }}
-        with:
-          environment: 'build-docker'
-          version: ${{ steps.build.outputs.build-version }}
-          status: "failure"
+      # - uses: ./coinmap-actions/notification
+      #   if: ${{ failure() }}
+      #   with:
+      #     environment: 'build-docker'
+      #     version: ${{ steps.build.outputs.build-version }}
+      #     status: "failure"
           
   deploy:
     needs: [build-docker]

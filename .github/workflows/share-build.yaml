@@ -21,7 +21,7 @@ env:
 jobs:
 
   build-docker:
-    runs-on: gha-runner-scale-set
+    runs-on: self-hosted
     outputs:
       build-version: ${{ steps.build.outputs.build-version }}
       environment: ${{ steps.build.outputs.environment }}
@@ -31,26 +31,26 @@ jobs:
           repository: CoinmapTrading/actions
           token: ${{ secrets.envPAT }}
           path: coinmap-actions
-          ref: v0.0.2
+          ref: dev-ci
       - id: build
         uses: ./coinmap-actions/build
-      # - uses: ./coinmap-actions/notification
-      #   if: ${{ failure() }}
-      #   with:
-      #     environment: 'build-docker'
-      #     version: ${{ steps.build.outputs.build-version }}
-      #     status: "failure"
+      - uses: ./coinmap-actions/notification
+        if: ${{ failure() }}
+        with:
+          environment: 'build-docker'
+          version: ${{ steps.build.outputs.build-version }}
+          status: "failure"
           
   deploy:
     needs: [build-docker]
-    runs-on: gha-runner-scale-set
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
         with:
           repository: CoinmapTrading/actions
           token: ${{ secrets.envPAT }}
           path: coinmap-actions
-          ref: v0.0.2
+          ref: dev-ci
       - uses: actions/checkout@v3
         with:
           repository: CoinmapTrading/cm-infras

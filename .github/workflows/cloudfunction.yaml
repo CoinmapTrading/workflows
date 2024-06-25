@@ -19,7 +19,7 @@ env:
   SERVICE: ${{ inputs.service }}
 
 jobs:
-  npm-build:
+  cloudfunction-build:
     runs-on: gha-runner-scale-set
     steps:
       - uses: actions/checkout@v3
@@ -27,5 +27,10 @@ jobs:
           repository: CoinmapTrading/actions
           token: ${{ secrets.envPAT }}
           path: coinmap-actions
+      - uses: actions/checkout@v3
+        with:
+          repository: CoinmapTrading/cm-infras
+          token: ${{ secrets.envPAT }}
+          path: cm-infras
       - uses: ./coinmap-actions/cloudfunction
 

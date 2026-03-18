@@ -14,7 +14,7 @@ on:
 
 jobs:
   npm-build:
-    runs-on: self-hosted
+    runs-on: gha-runner-scale-set
     container: node:14.18.2-alpine
     steps:
       - uses: actions/checkout@v3
